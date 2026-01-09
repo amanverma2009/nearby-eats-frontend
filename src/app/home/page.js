@@ -118,7 +118,7 @@ export default function HomePage() {
   }, [cards]);
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen bg-gray-50 flex flex-col pb-32">
       <div className="bg-white px-6 py-4 shadow-sm relative z-50">
         <div className="flex items-center justify-between">
           <Image width={50} height={50} alt="Logo" src="/temp-logo.png" />
@@ -131,7 +131,7 @@ export default function HomePage() {
         </div>
       </div>
 
-  <div className="flex-1 relative flex items-center justify-center">
+      <div className="flex-1 relative flex items-center justify-center">
         {(() => {
           const elems = [];
           for (let i = topCards.length - 1; i >= 0; i--) {
@@ -173,7 +173,7 @@ export default function HomePage() {
         )}
       </div>
 
-      <div className=" p-6 pt-4 border-t border-gray-100">
+      <div className="fixed left-0 right-0 bottom-24 p-6 pt-4 border-t border-gray-100 flex items-center justify-center z-60">
         <div className="flex items-center justify-center gap-6">
           <button
             onClick={() => refs.current[0]?.trigger("dislike")}
@@ -200,33 +200,37 @@ export default function HomePage() {
       </div>
 
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-6 py-3 z-50">
-        <div className="grid grid-cols-3 gap-2 mt-1">
-          <Link href="/home">
+        <div className="grid grid-cols-3 gap-2">
+          <a href="/home">
             <div className="flex flex-col items-center justify-center py-2 rounded-xl transition-colors bg-orange-50">
               <div className="w-6 h-6 flex items-center justify-center">
-                <Compass className="text-xl text-primary" />
+                <Compass className=" text-primary" />
               </div>
-              <span className="text-xs font-medium text-primary">Discover</span>
+              <span className="text-xs mt-1 font-medium text-primary">
+                Discover
+              </span>
             </div>
-          </Link>
-          <Link href="/saved">
+          </a>
+          <a href="/saved">
             <div className="flex flex-col items-center justify-center py-2 rounded-xl transition-colors ">
               <div className="w-6 h-6 flex items-center justify-center">
                 <Bookmark className=" text-gray-400" />
               </div>
-              <span className="text-xs font-medium text-gray-500">Saved</span>
+              <span className="text-xs mt-1 font-medium text-gray-500">
+                Saved
+              </span>
             </div>
-          </Link>
-          <Link href="/settings">
-            <div className="flex flex-col items-center justify-center py-2 rounded-xl transition-colors ">
+          </a>
+          <a href="/settings">
+            <div className="flex flex-col items-center justify-center py-2 rounded-xl transition-colors">
               <div className="w-6 h-6 flex items-center justify-center">
-                <Settings className=" text-gray-400" />
+                <Settings className="text-gray-400" />
               </div>
-              <span className="text-xs font-medium text-gray-500">
+              <span className="text-xs mt-1 font-medium text-gray-500">
                 Settings
               </span>
             </div>
-          </Link>
+          </a>
         </div>
       </div>
     </div>

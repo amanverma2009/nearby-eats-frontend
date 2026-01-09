@@ -13,7 +13,7 @@ import { useRouter } from "next/navigation";
 export default function Page() {
   const router = useRouter();
   return (
-  <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50">
       <div className="bg-white px-6 py-4 shadow-sm">
         <div className="flex items-center gap-4">
           <button className="w-10 h-10 flex items-center justify-center">
@@ -39,15 +39,6 @@ export default function Page() {
             </div>
             <i className="ri-arrow-right-s-line text-xl text-gray-400"></i>
           </button>
-          <button className="w-full px-5 py-4 flex items-center justify-between border-b border-gray-100 active:bg-gray-50">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 flex items-center justify-center">
-                <CircleDollarSign className="h-6 flex items-center justify-center text-gray-600"></CircleDollarSign>
-              </div>
-              <span className="text-sm text-gray-900">Budget Range</span>
-            </div>
-            <i className="ri-arrow-right-s-line text-xl text-gray-400"></i>
-          </button>
           <div className="px-5 py-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 flex items-center justify-center">
@@ -60,7 +51,7 @@ export default function Page() {
             </button>
           </div>
         </div>
-        <button className="w-full bg-white text-red-500 py-4 rounded-2xl font-semibold shadow-sm active:scale-98 transition-transform cursor-pointer">
+        <button className="w-full bg-white text-red-500 hover:bg-red-50 py-4 rounded-2xl font-semibold shadow-sm active:scale-98 transition-transform cursor-pointer">
           Log Out
         </button>
       </div>

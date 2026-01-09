@@ -9,7 +9,7 @@ const poppins = Poppins({
 });
 
 export const metadata = {
-  title: "Nearby Eats",
+  title: "Dyne",
   description:
     "Swipe through nearby restaurants and discover amazing places to eat.",
   keywords: [
@@ -25,7 +25,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${poppins.variable} antialiased pb-24`}>{children}</body>
+      <body className={`${poppins.variable} antialiased`}>{children}</body>
     </html>
   );
 }

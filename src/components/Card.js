@@ -111,7 +111,7 @@ function CardInner(
     const dx = posRef.current.x;
     const dy = posRef.current.y;
     const thresholdX = 120;
-    const thresholdY = -120; 
+    const thresholdY = -120;
 
     if (dx > thresholdX) {
       settle("like");
@@ -135,7 +135,6 @@ function CardInner(
   }
 
   function onPointerDown(e) {
-    e.preventDefault();
     try {
       cardRef.current?.setPointerCapture?.(e.pointerId);
     } catch (err) {}
@@ -193,7 +192,6 @@ function CardInner(
   function onTouchStart(e) {
     const t = e.touches[0];
     if (!t) return;
-    e.preventDefault();
     pointerIdRef.current = "touch";
     startRef.current = { x: t.clientX, y: t.clientY };
     setIsDragging(true);
@@ -266,16 +264,16 @@ function CardInner(
   const saveOpacity = Math.min(Math.max(-pos.y / 120, 0), 1);
 
   return (
-    <div className=" flex items-center justify-center px-4 py-6 overflow-hidden">
+    <div className="flex items-center justify-center px-4 py-6 ">
       <div
         ref={cardRef}
         onPointerDown={draggable ? onPointerDown : undefined}
         onTouchStart={draggable ? onTouchStart : undefined}
-        className="w-full max-w-sm bg-white rounded-3xl shadow-xl overflow-hidden"
+        className="w-full max-w-sm bg-white rounded-3xl shadow-xl "
         style={{
           transform,
           transition,
-          touchAction: draggable ? "none" : "auto",
+          touchAction: draggable ? "pan-x" : "auto",
           cursor: draggable ? (isDragging ? "grabbing" : "grab") : "default",
         }}
       >
@@ -359,12 +357,6 @@ function CardInner(
                 </span>
               </div>
             </div>
-            <Link href="/restaurant/1">
-              <button className="text-sm font-medium text-primary flex items-center gap-1 cursor-pointer hover:underline">
-                View Details
-                <ArrowRightIcon className="text-xl"></ArrowRightIcon>
-              </button>
-            </Link>
           </div>
         </div>
       </div>
