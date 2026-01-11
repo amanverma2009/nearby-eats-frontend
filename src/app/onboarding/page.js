@@ -4,6 +4,7 @@ import Button from "@/components/Button";
 import { MapPin } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
+import Link from "next/link";
 
 export default function Home() {
   const router = useRouter();
@@ -122,10 +123,11 @@ export default function Home() {
             content={isRequesting ? "Requesting…" : "Enable Location"}
             onClick={requestLocation}
           />
-
+          <Link href="/onboarding/step-2">
           <button className="min-w-fit px-6 text-gray-500 py-3 text-sm cursor-pointer">
             Skip for now
           </button>
+          </Link>
         </div>
         <div className="flex gap-2 mt-6">
           <div className="w-8 h-1 bg-primary rounded-full"></div>
