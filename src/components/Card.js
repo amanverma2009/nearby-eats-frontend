@@ -154,47 +154,6 @@ function CardInner(
     window.addEventListener("pointerup", onPointerUpWindow);
   }
 
-  function settle(actionType) {
-    const w = window.innerWidth;
-    const h = window.innerHeight;
-    if (actionType === "like") {
-      setPos((p) => ({ x: w * 1.1, y: p.y }));
-      setAction("like");
-      setTimeout(() => {
-        onLike?.();
-        setGone(true);
-      }, 300);
-    } else if (actionType === "dislike") {
-      setPos((p) => ({ x: -w * 1.1, y: p.y }));
-      setAction("dislike");
-      setTimeout(() => {
-        onDislike?.();
-        setGone(true);
-      }, 300);
-    } else if (actionType === "save") {
-      setPos((p) => ({ x: p.x, y: -h * 1.1 }));
-      setAction("save");
-      setTimeout(() => {
-        onSave?.();
-        setGone(true);
-      }, 300);
-    }
-  }
-
-  function cleanupPointerListeners() {
-    try {
-      window.removeEventListener("pointermove", onPointerMoveWindow);
-      window.removeEventListener("pointerup", onPointerUpWindow);
-    } catch (e) {
-      console.debug("cleanupPointerListeners (remove) error", e);
-    }
-    try {
-      cardRef.current?.releasePointerCapture?.(pointerIdRef.current);
-    } catch (e) {
-      console.debug("cleanupPointerListeners (release) error", e);
-    }
-  }
-
   useImperativeHandle(ref, () => ({
     trigger(actionType) {
       if (!gone) settle(actionType);
@@ -202,6 +161,9 @@ function CardInner(
   }));
 
   function onTouchStart(e) {
+    // Prevent the page from scrolling while swiping the card.
+    // (Works because we also register `touchmove` with `{ passive: false }`.)
+    e.preventDefault?.();
     const t = e.touches[0];
     if (!t) return;
     pointerIdRef.current = "touch";
@@ -218,6 +180,7 @@ function CardInner(
 
   function onTouchMove(e) {
     if (pointerIdRef.current !== "touch") return;
+    e.preventDefault?.();
     const t = e.touches[0];
     if (!t) return;
     const dx = t.clientX - startRef.current.x;
@@ -241,8 +204,9 @@ function CardInner(
       console.debug("onTouchEnd cleanup error", e);
     }
 
-    const dx = pos.x;
-    const dy = pos.y;
+  // Use the ref so we don't accidentally read a stale `pos` value on mobile.
+  const dx = posRef.current.x;
+  const dy = posRef.current.y;
     const thresholdX = 120;
     const thresholdY = -120;
 
@@ -287,7 +251,8 @@ function CardInner(
         style={{
           transform,
           transition,
-          touchAction: draggable ? "pan-x" : "auto",
+          // Allow vertical page scrolling, but we still prevent default while dragging the card.
+          touchAction: draggable ? "pan-y" : "auto",
           cursor: draggable ? (isDragging ? "grabbing" : "grab") : "default",
         }}
       >
